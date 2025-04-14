@@ -14,10 +14,19 @@ Cypress.Commands.add('login', (
 })
 
 Cypress.Commands.add('logout', () => {
-  cy.get('.header-user-dropdown-toggle')
+  cy.get('.qa-user-avatar')
     .should('be.visible')
     .click()
   cy.get('.sign-out-link')
     .should('be.visible')
     .click()
+})
+
+Cypress.Commands.add('gui_createProject', project => {
+  cy.visit('/projects/new')
+
+  cy.get('#project_name').type(project.name)
+  cy.get('#project_description').type(project.description)
+  cy.get('.qa-initialize-with-readme-checkbox').check()
+  cy.contains('input', 'Create project').click()
 })
